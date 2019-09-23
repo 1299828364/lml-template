@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<!--namespace写对应的接口的全路径-->
+<mapper namespace="com.template.lml.demo.repository.UserRepository">
+
+
+    <!--user表-->
+    <resultMap id="UserResultMap" type="com.template.lml.demo.domain.User">
+
+        <!--主键-->
+        <result column="user_id" property="userId"/>
+
+        <!--普通列-->
+        <result column="account" property="account"/>
+        <result column="password" property="password"/>
+        <result column="user_name" property="userName"/>
+        <result column="state" property="state"/>
+        <result column="create_date" property="createDate"/>
+        <result column="count" property="count"/>
+    </resultMap>
+
+
+    <!--user的列集-->
+    <sql id="User_Column_List">
+        user_id,account,password,user_name,state,create_date
+    </sql>
+
+
+    <!--查找所有user-->
+    <select id="findAll" resultMap="UserResultMap">
+        select <include refid="User_Column_List"/>
+        from user
+    </select>
+
+
+    <!--根据id查找user-->
+    <select id="findById" resultMap="UserResultMap">
+        select <include refid="User_Column_List"/>
+        from user where user_id=#{userId}
+    </select>
+
+    <!--根据account查找user-->
+    <select id="findByAccount" resultMap="UserResultMap">
+        select <include refid="User_Column_List"/>
+        from user where account=#{account}
+    </select>
+
+</mapper>
